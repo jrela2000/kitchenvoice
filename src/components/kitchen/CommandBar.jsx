@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Shows the live interim transcript + last heard command + a hint chip.
 export default function CommandBar({ interim, lastHeard, hint, listening }) {
   return (
-    <div className="min-h-[3.5rem] flex flex-col items-center justify-center gap-1 text-center">
+    <div aria-hidden="true" className="min-h-[3.5rem] flex flex-col items-center justify-center gap-1 text-center">
       <AnimatePresence mode="wait">
         {interim ? (
           <motion.p
@@ -22,7 +22,6 @@ export default function CommandBar({ interim, lastHeard, hint, listening }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            aria-live="polite"
             className="text-lg font-medium"
           >
             {lastHeard}

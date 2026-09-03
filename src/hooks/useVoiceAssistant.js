@@ -27,6 +27,7 @@ export function useVoiceAssistant({ onCommand, wakeWord = 'Hey Kitchen', alwaysO
   const manualStopRef = useRef(false);
   const speakingRef = useRef(false);
   const runningRef = useRef(false);
+  const lastStartRef = useRef(0);
 
   useEffect(() => { onCommandRef.current = onCommand; }, [onCommand]);
   useEffect(() => { wakeRef.current = wakeWord; }, [wakeWord]);
@@ -73,11 +74,14 @@ export function useVoiceAssistant({ onCommand, wakeWord = 'Hey Kitchen', alwaysO
     rec.onend = () => {
       runningRef.current = false;
       if (alwaysOnRef.current && enabledRef.current && !manualStopRef.current && !speakingRef.current) {
-        // Keep "listening" steady across the brief restart gap so the orb and
-        // screen readers don't re-announce a start/stop churn on every cycle.
+        // Keep "listening" steady across the restart gap so the orb and screen
+        // readers don't re-announce a start/stop churn. Debounce so the mic
+        // can't rapidly restart in a tight loop (which chimes on some devices).
+        const sinceLast = Date.now() - lastStartRef.current;
+        const delay = Math.max(250, 1500 - sinceLast);
         setTimeout(() => {
           if (alwaysOnRef.current && enabledRef.current && !manualStopRef.current && !speakingRef.current) start();
-        }, 250);
+        }, delay);
       } else {
         setListening(false);
       }
@@ -86,6 +90,7 @@ export function useVoiceAssistant({ onCommand, wakeWord = 'Hey Kitchen', alwaysO
     try {
       rec.start();
       runningRef.current = true;
+      lastStartRef.current = Date.now();
       setListening(true);
       setError('');
     } catch {

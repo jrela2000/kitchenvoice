@@ -20,11 +20,11 @@ export default function Onboarding() {
   const [tutCmd, setTutCmd] = useState('');
 
   const voice = useVoiceAssistant({
-    alwaysOn: true,
+    alwaysOn: step === 3,
     wakeWord: settings.wakeWord,
     onCommand: (cmd) => {
       setTutCmd(cmd.command);
-      if (cmd.command === 'next') setStep((s) => Math.min(s + 1, 4));
+      if (cmd.command === 'next') setStep((s) => Math.min(s + 1, 3));
       if (cmd.command === 'back') setStep((s) => Math.max(s - 1, 0));
       if (cmd.command === 'home' || cmd.command === 'finish') finish();
     }
