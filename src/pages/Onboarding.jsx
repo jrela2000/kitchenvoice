@@ -113,7 +113,7 @@ export default function Onboarding() {
         <>
           <h1 className="font-heading text-3xl font-extrabold">Voice tutorial</h1>
           <p className="mt-2 text-lg text-muted-foreground">Try it. Say “{settings.wakeWord}, next”.</p>
-          <div className="my-8 flex justify-center"><VoiceOrb listening={voice.listening} onClick={() => (voice.listening ? voice.stop() : voice.start())} size="lg" /></div>
+          <div className="my-8 flex justify-center"><VoiceOrb listening={voice.listening} disabled={!speechSupported()} onClick={() => (voice.listening ? voice.stop() : voice.start())} size="lg" /></div>
           <div className="rounded-2xl bg-accent/50 p-4 text-center">
             <p className="text-lg">Heard: <span className="font-bold">{tutCmd || '—'}</span></p>
           </div>

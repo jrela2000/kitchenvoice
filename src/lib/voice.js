@@ -1,7 +1,10 @@
 // Web Speech API helpers: recognition (STT) + synthesis (TTS) + command parsing.
 
+// Mic / speech recognition is temporarily disabled. Spoken readback (TTS) still works.
+export const VOICE_RECOGNITION_ENABLED = false;
+
 export function speechSupported() {
-  return typeof window !== 'undefined' && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  return VOICE_RECOGNITION_ENABLED && typeof window !== 'undefined' && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
 }
 
 export function ttsSupported() {
@@ -9,6 +12,7 @@ export function ttsSupported() {
 }
 
 export function getSpeechRecognition() {
+  if (!VOICE_RECOGNITION_ENABLED) return null;
   if (typeof window === 'undefined') return null;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   return SR ? new SR() : null;
