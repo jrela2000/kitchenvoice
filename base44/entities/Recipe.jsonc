@@ -1,0 +1,61 @@
+{
+  "name": "Recipe",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cook_time_minutes": {
+      "type": "number",
+      "default": 0
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "default": "easy"
+    },
+    "servings": {
+      "type": "number",
+      "default": 4
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "discovered",
+        "created"
+      ],
+      "default": "created"
+    },
+    "image_query": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

@@ -6,6 +6,13 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
+import AppShell from '@/components/kitchen/AppShell';
+import Onboarding from '@/pages/Onboarding';
+import Home from '@/pages/Home';
+import RecipeDetail from '@/pages/RecipeDetail';
+import Cooking from '@/pages/Cooking';
+import CreateRecipe from '@/pages/CreateRecipe';
+import Settings from '@/pages/Settings';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -34,7 +41,14 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route path="/onboarding" element={<Onboarding />} />
+      <Route element={<AppShell />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/cooking/:id" element={<Cooking />} />
+        <Route path="/create" element={<CreateRecipe />} />
+        <Route path="/settings" element={<Settings />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
