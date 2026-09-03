@@ -14,7 +14,7 @@ export default function VoiceOrb({ listening, onClick, disabled, size = 'md', la
         type="button"
         onClick={onClick}
         disabled={disabled}
-        aria-label={label || (listening ? 'Stop listening' : 'Start listening')}
+        aria-label={label || 'Voice assistant'}
         whileTap={{ scale: 0.94 }}
         className={`relative flex items-center justify-center rounded-full text-white shadow-lg transition-colors ${sizes[size]} ${
           disabled ? 'bg-muted-foreground/40' : listening ? 'bg-primary' : 'bg-primary/90 hover:bg-primary'

@@ -72,11 +72,14 @@ export function useVoiceAssistant({ onCommand, wakeWord = 'Hey Kitchen', alwaysO
     };
     rec.onend = () => {
       runningRef.current = false;
-      setListening(false);
       if (alwaysOnRef.current && enabledRef.current && !manualStopRef.current && !speakingRef.current) {
+        // Keep "listening" steady across the brief restart gap so the orb and
+        // screen readers don't re-announce a start/stop churn on every cycle.
         setTimeout(() => {
           if (alwaysOnRef.current && enabledRef.current && !manualStopRef.current && !speakingRef.current) start();
         }, 250);
+      } else {
+        setListening(false);
       }
     };
     manualStopRef.current = false;

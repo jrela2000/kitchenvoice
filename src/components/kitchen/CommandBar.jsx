@@ -11,6 +11,7 @@ export default function CommandBar({ interim, lastHeard, hint, listening }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            aria-hidden="true"
             className="text-lg italic text-muted-foreground"
           >
             “{interim}”
@@ -21,6 +22,7 @@ export default function CommandBar({ interim, lastHeard, hint, listening }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            aria-live="polite"
             className="text-lg font-medium"
           >
             {lastHeard}
